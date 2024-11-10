@@ -35,7 +35,10 @@ jobs:
           bundler-cache: true
 
       - name: Lint code for consistent style
-        run: bin/rubocop -f github
+        run: bundle exec rubocop --require rubocop-rails
+
+      - name: Lint Slim templates for consistent style
+        run: bundle exec slim-lint -r github app/views
 
   test:
     runs-on: ubuntu-latest
