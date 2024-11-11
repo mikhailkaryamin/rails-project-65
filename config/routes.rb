@@ -11,8 +11,9 @@ Rails.application.routes.draw do
   end
 
   scope module: :web do
-    root 'home#index'
+    root 'bulletins#index'
 
     resource :session, only: %i[destroy]
+    resources :bulletins
   end
 end

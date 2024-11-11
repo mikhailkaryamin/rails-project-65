@@ -48,6 +48,16 @@ gem 'simple_form'
 
 gem 'faker'
 
+gem 'active_storage_validations'
+
+gem 'aws-sdk-s3'
+
+gem 'file_validators'
+
+gem 'image_processing'
+
+gem 'rails-i18n', '~> 7.0.0'
+
 group :production do
   gem 'pg'
 end
