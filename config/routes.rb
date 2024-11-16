@@ -11,9 +11,23 @@ Rails.application.routes.draw do
   end
 
   scope module: :web do
-    root 'bulletins#index'
+    root 'home#index'
 
     resource :session, only: %i[destroy]
     resources :bulletins
+
+    namespace :admin do
+      root 'home#index'
+
+      resources :bulletins do
+        member do
+          patch :publish
+          patch :archive
+          patch :reject
+        end
+      end
+
+      resources :categories
+    end
   end
 end

@@ -1,0 +1,26 @@
+= render layout: 'web/admin/shared/container' do
+  h1.h2.mb-4
+    | Объявления
+  .row.mt-2
+    table.table.table-borderless
+      thead
+        tr
+          th
+            | Название
+          th
+            | Состояние
+          th
+            | Дата создания
+          th
+            | Действия
+      tbody
+        - @bulletins.each do |bulletin|
+          tr
+            td = link_to bulletin.title, bulletin_path(bulletin)
+            td = bulletin.aasm_state
+            td = time_ago_in_words(bulletin.updated_at)
+            td
+              = link_to 'Показать', bulletin_path(bulletin), class: 'me-1'
+              - unless bulletin.archived?
+                = link_to 'Архивировать', archive_admin_bulletin_path(bulletin), class: 'text-danger',
+                  data: { turbo_method: :patch, turbo_confirm: 'Подтвердить архивацию' }

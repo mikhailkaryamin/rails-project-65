@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_10_113336) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_14_142102) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,6 +46,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_113336) do
     t.integer "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "aasm_state"
     t.index ["category_id"], name: "index_bulletins_on_category_id"
     t.index ["user_id"], name: "index_bulletins_on_user_id"
   end
@@ -70,6 +71,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_113336) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin", default: false, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

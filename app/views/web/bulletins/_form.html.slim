@@ -5,20 +5,20 @@
   .form-inputs
     .form-group.mb-3
       = f.input :title,
-        label: "Заголовок"
+        label: 'Заголовок'
     .form-group.mb-3
       = f.input :description,
-        label: "Описание"
+        label: 'Описание'
     .form-group.mb-3
       = f.association :category,
-        label: "Категория"
+        label: 'Категория'
 
     - if @bulletin.image_attachment
       = image_tag @bulletin.image.variant(resize_to_limit: [63, 110]), class: 'img-thumbnail mb-2'
 
     .form-group
       = f.input :image,
-        label: "Фотография"
+        label: 'Фотография'
 
   .form-actions
-    = f.button :submit, "Сохранить объявление", class: 'mt-4 btn btn-primary'
+    = f.button :submit, 'Сохранить объявление', class: 'mt-4 btn btn-primary'

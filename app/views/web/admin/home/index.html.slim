@@ -1,0 +1,25 @@
+= render layout: 'web/admin/shared/container' do
+  h1.h2.mb-4
+    | Объявления на модерации
+  .row.mt-2
+    table.table.table-borderless
+      thead
+        tr
+          th
+            | Название
+          th
+            | Дата создания
+          th
+            | Действия
+      tbody
+        - @bulletins.each do |bulletin|
+          tr
+            td = link_to bulletin.title, bulletin_path(bulletin)
+            td = time_ago_in_words(bulletin.updated_at)
+            td
+              = link_to 'Опубликовать', publish_admin_bulletin_path(bulletin), class: 'me-1',
+                data: { turbo_method: :patch, turbo_confirm: 'Подтвердить публикацию' }
+              = link_to 'Вернуть', reject_admin_bulletin_path(bulletin), class: 'me-1',
+                data: { turbo_method: :patch, turbo_confirm: 'Подтвердить возврат' }
+              = link_to 'В архив', archive_admin_bulletin_path(bulletin), class: 'text-danger',
+                data: { turbo_method: :patch, turbo_confirm: 'Подтвердить архивацию' }

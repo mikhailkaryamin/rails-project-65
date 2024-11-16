@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Web
-  class HomeController < ApplicationController
-    def index; end
+class Web::HomeController < ApplicationController
+  def index
+    @bulletins = Bulletin.includes(:category, :creator).order(created_at: :desc)
   end
 end

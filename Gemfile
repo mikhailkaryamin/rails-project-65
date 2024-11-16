@@ -58,6 +58,10 @@ gem 'image_processing'
 
 gem 'rails-i18n', '~> 7.0.0'
 
+gem 'aasm'
+
+gem 'pundit'
+
 group :production do
   gem 'pg'
 end
