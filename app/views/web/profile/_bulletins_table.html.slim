@@ -1,0 +1,13 @@
+section#bulletin-table
+  .table-responsive
+    table.table.table-hover.text-nowrap
+      thead
+        tr
+          th = t('activerecord.attributes.bulletin.title')
+          th = t('activerecord.attributes.bulletin.state')
+          th = t('activerecord.attributes.bulletin.created_at')
+          th.x-pinned-th
+            = t('admin.table_headers.actions')
+      tbody
+        - bulletins.each do |bulletin|
+          = render 'bulletin_row', bulletin:

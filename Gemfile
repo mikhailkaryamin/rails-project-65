@@ -62,6 +62,12 @@ gem 'aasm'
 
 gem 'pundit'
 
+gem 'ransack'
+
+gem 'kaminari'
+
+gem 'bootstrap5-kaminari-views'
+
 group :production do
   gem 'pg'
 end

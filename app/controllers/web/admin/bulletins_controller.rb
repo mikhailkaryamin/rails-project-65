@@ -13,7 +13,7 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     if @bulletin.published?
       redirect_back_or_to admin_root_path, notice: 'Bulletin was successfully published.'
     else
-      redirect_back_or_to admin_root_path, notice: "Bulletin wasn't successfully created."
+      redirect_back_or_to admin_root_path, notice: "Bulletin wasn't successfully published."
     end
   end
 

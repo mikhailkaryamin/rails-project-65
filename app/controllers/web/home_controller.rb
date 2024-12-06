@@ -2,6 +2,6 @@
 
 class Web::HomeController < ApplicationController
   def index
-    @bulletins = Bulletin.includes(:category, :creator).order(created_at: :desc)
+    @bulletins = Bulletin.published.includes(:category, :creator).order(created_at: :desc)
   end
 end

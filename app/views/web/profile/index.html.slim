@@ -1,0 +1,8 @@
+.container.px-0.mt-4.mb-5.pb-5#profile-bulletin
+  .card.shadow.p-4
+    mb-4
+      h2 = t('.header')
+      hr
+    = render 'web/shared/bulletins/search_form', url: profile_path
+    = render 'bulletins_table', bulletins: @bulletins
+    = render 'web/shared/pagination', pagy_object: @bulletins

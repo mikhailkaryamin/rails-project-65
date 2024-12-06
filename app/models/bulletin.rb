@@ -15,20 +15,28 @@ class Bulletin < ApplicationRecord
                     content_type: %i[png jpg jpeg],
                     size: { less_than: 5.megabytes }
 
-  aasm whiny_transitions: false do
-    state :on_moderate, initial: true
-    state :published, :archived, :rejected
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[category_id created_at description id id_value title updated_at user_id]
+  end
+
+  aasm column: :state, whiny_transitions: false do
+    state :draft, initial: true
+    state :under_moderation, :published, :archived, :rejected
+
+    event :to_moderate do
+      transitions from: :draft, to: :under_moderation
+    end
 
     event :publish do
-      transitions from: :on_moderate, to: :published
+      transitions from: :under_moderation, to: :published
     end
 
     event :reject do
-      transitions from: :on_moderate, to: :rejected
+      transitions from: :under_moderation, to: :rejected
     end
 
     event :archive do
-      transitions from: %i[on_moderate published], to: :archived
+      transitions from: %i[draft under_moderation published rejected], to: :archived
     end
   end
 end

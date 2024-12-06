@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Web::BulletinsController < ApplicationController
-  before_action :set_bulletin, only: %i[show]
+  before_action :set_bulletin, only: %i[archive to_moderate]
 
   def index
     @bulletins = Bulletin.includes(:category, :creator).order(created_at: :desc)
@@ -48,34 +48,23 @@ class Web::BulletinsController < ApplicationController
     redirect_to vehicles_path, notice: 'Bulletin was successfully destroyed.'
   end
 
-  def publish
-    @bulletin.publish!
-
-    if @bulletin.published?
-      # TODO: обновить ссылку
-      redirect_to redirect_back_or_to 'admin/bulletins', notice: 'Bulletin was successfully published.'
-    else
-      redirect_to redirect_back_or_to 'admin/bulletins', notice: "Bulletin wasn't successfully created."
-    end
-  end
-
-  def reject
-    @bulletin.reject!
-
-    if @bulletin.published?
-      redirect_to redirect_back_or_to 'admin/bulletins', notice: 'Bulletin was successfully published.'
-    else
-      redirect_to redirect_back_or_to 'admin/bulletins', notice: "Bulletin wasn't successfully created."
-    end
-  end
-
   def archive
     @bulletin.archive!
 
     if @bulletin.archived?
-      redirect_to redirect_back_or_to 'admin/bulletins', notice: 'Bulletin was successfully archived.'
+      redirect_back_or_to 'admin/bulletins', notice: 'Bulletin was successfully archived.'
     else
-      redirect_to redirect_back_or_to 'admin/bulletins', notice: "Bulletin wasn't successfully archived."
+      redirect_back_or_to 'admin/bulletins', notice: "Bulletin wasn't successfully archived."
+    end
+  end
+
+  def to_moderate
+    @bulletin.to_moderate!
+
+    if @bulletin.under_moderation?
+      redirect_back_or_to 'admin/bulletins', notice: 'Bulletin was successfully under moderation.'
+    else
+      redirect_back_or_to 'admin/bulletins', notice: "Bulletin wasn't successfully under moderation."
     end
   end
 

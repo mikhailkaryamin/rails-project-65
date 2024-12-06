@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     post '/auth/:provider', to: 'auth#request', as: :auth_request
     get '/auth/:provider/callback', to: 'auth#callback', as: :callback_auth
 
+    get 'profile', to: 'profile#index'
+
     match '/403', to: 'errors#forbidden', via: :all
     match '/404', to: 'errors#not_found', via: :all
     match '/500', to: 'errors#server_error', via: :all
@@ -14,7 +16,12 @@ Rails.application.routes.draw do
     root 'home#index'
 
     resource :session, only: %i[destroy]
-    resources :bulletins
+    resources :bulletins do
+      member do
+        patch :to_moderate
+        patch :archive
+      end
+    end
 
     namespace :admin do
       root 'home#index'
@@ -24,6 +31,7 @@ Rails.application.routes.draw do
           patch :publish
           patch :archive
           patch :reject
+          patch :to_moderate
         end
       end
 

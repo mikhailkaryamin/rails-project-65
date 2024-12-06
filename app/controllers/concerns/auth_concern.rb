@@ -21,6 +21,6 @@ module AuthConcern
   def authenticate_user!
     return if signed_in?
 
-    redirect_to new_session_path
+    redirect_to root_path
   end
 end
