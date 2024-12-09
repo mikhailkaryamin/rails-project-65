@@ -5,6 +5,8 @@
         h2
           | Объявления
         hr
+      .row#bulletin-search-form
+        = render 'web/shared/bulletins/search_form', url: root_url
       .row.mt-2
         - @bulletins.each do |bulletin|
           == render 'web/bulletins/bulletin', bulletin: bulletin

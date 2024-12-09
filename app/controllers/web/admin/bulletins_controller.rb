@@ -4,7 +4,8 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   before_action :set_bulletin, only: %i[publish reject archive]
 
   def index
-    @bulletins = Bulletin.order(created_at: :desc)
+    @q = current_user.bulletins.ransack(params[:q])
+    @bulletins = @q.result.order(updated_at: :desc).page(params[:page])
   end
 
   def publish

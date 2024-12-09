@@ -8,10 +8,8 @@
         = f.collection_select :category_id_eq,
         Category.all, :id, :name, { include_blank: true }, { class: 'form-select form-select' }
         small.form-text.text-muted = t('.category_hint')
-    .col-2.d-flex
-      div(title="#{t('.search')}")
-        = f.button :submit, { class: 'btn me-2' } do
-          i.bi.bi-search
-      div(title="#{t('.reset')}")
-        = link_to url, class: 'btn' do
-          i.bi.bi-eraser-fill
+    .col-2
+      = f.submit class: 'btn btn-primary me-2'
+        | Искать
+      = link_to url, class: 'btn btn-outline-primary'
+        | Сброс

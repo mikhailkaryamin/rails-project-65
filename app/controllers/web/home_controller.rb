@@ -2,6 +2,7 @@
 
 class Web::HomeController < ApplicationController
   def index
-    @bulletins = Bulletin.published.includes(:category, :creator).order(created_at: :desc)
+    @q = Bulletin.published.includes(:creator).with_attached_image.ransack(params[:q])
+    @bulletins = @q.result.order(updated_at: :desc).page(params[:page]).per(12)
   end
 end

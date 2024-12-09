@@ -1,6 +1,7 @@
 = render layout: 'web/admin/shared/container' do
   h1.h2.mb-4
     | Объявления
+  = render 'web/shared/bulletins/search_form', url: admin_bulletins_url
   .row.mt-2
     table.table.table-borderless
       thead
