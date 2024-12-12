@@ -3,17 +3,19 @@
 class Bulletin < ApplicationRecord
   include AASM
 
-  has_one_attached :image
+  has_one_attached :image do |attached|
+    attached.variant :for_form, resize_to_limit: [nil, 100]
+  end
 
-  belongs_to :creator, class_name: 'User', foreign_key: 'user_id', inverse_of: :bulletins
+  belongs_to :user, counter_cache: :bulletins_count
   belongs_to :category
 
   validates :title, presence: true
   validates :description, presence: true
-  validates :image, presence: true,
-                    attached: true,
-                    content_type: %i[png jpg jpeg],
-                    size: { less_than: 5.megabytes }
+  validates :image,
+            attached: true,
+            content_type: %i[png jpg jpeg],
+            size: { less_than: 5.megabytes }
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[category_id created_at description id id_value title updated_at user_id]

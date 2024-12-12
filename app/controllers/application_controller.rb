@@ -8,10 +8,17 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from NotAuthenticatedError, with: :user_not_authenticated
 
   private
 
   def user_not_authorized
-    redirect_back_or_to(root_path)
+    flash[:warning] = t('user_not_authorized')
+    redirect_to root_path
+  end
+
+  def user_not_authenticated
+    flash[:warning] = t('user_not_authenticated')
+    redirect_to root_path
   end
 end

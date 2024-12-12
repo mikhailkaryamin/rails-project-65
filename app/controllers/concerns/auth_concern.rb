@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module AuthConcern
+  extend ActiveSupport::Concern
+
   def sign_in(user)
     session[:user_id] = user.id
   end
@@ -18,9 +20,9 @@ module AuthConcern
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  def authenticate_user!
-    return if signed_in?
+  class NotAuthenticatedError < StandardError; end
 
-    redirect_to root_path
+  def authenticate_user!
+    raise NotAuthenticatedError unless signed_in?
   end
 end

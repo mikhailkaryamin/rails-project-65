@@ -1,24 +1,21 @@
 = render layout: 'web/admin/shared/container' do
   h1.h2.mb-4
-    | Категории
-  = link_to 'Добавить категорию', new_admin_category_path, class: 'me-1'
+    = t('web.admin.categories.index.header')
+  = link_to t('web.admin.actions.new'), new_admin_category_path, class: 'me-1'
 
   .row.mt-2
     table.table.table-borderless
       thead
         tr
-          th
-            | ID
-          th
-            | Название
-          th
-            | Действия
+          th = t('activerecord.attributes.category.id')
+          th = t('activerecord.attributes.category.name')
+          th = t('web.admin.table_headers.actions')
       tbody
         - @categories.each do |category|
           tr
             td = category.id
             td = category.name
             td
-              = link_to 'Редактировать', edit_admin_category_path(category), class: 'me-1'
-              = link_to 'Удалить', admin_category_path(category), class: 'text-danger',
-                data: { turbo_method: :delete, turbo_confirm: 'Подтвердить удаление' }
+              = link_to t('web.admin.actions.edit'), edit_admin_category_path(category), class: 'me-1'
+              = link_to t('web.admin.actions.delete'), admin_category_path(category), class: 'text-danger',
+                data: { turbo_method: :delete, turbo_confirm: t('web.admin.categories.confirmation.delete') }

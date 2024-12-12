@@ -107,5 +107,6 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'minitest-power_assert', '~> 0.3.1'
   gem 'selenium-webdriver'
 end

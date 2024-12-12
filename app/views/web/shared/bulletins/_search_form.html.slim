@@ -1,15 +1,15 @@
 = search_form_for @q, url: do |f|
   .row
     .col-6
-      = f.text_field :title_cont, class: 'form-control', hint: 'Искать по названию объявления'
+      = f.text_field :title_cont, class: 'form-control', hint: t('web.shared.bulletins.search_form.title_hint')
       small.form-text.text-muted = t('.title_hint')
     .col-4
       .form-group
         = f.collection_select :category_id_eq,
         Category.all, :id, :name, { include_blank: true }, { class: 'form-select form-select' }
-        small.form-text.text-muted = t('.category_hint')
+        small.form-text.text-muted = t('web.shared.bulletins.search_form.category_hint')
     .col-2
       = f.submit class: 'btn btn-primary me-2'
-        | Искать
+        = t('web.shared.bulletins.search_form.search')
       = link_to url, class: 'btn btn-outline-primary'
-        | Сброс
+        = t('web.shared.bulletins.search_form.reset')

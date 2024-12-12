@@ -1,70 +1,68 @@
 # frozen_string_literal: true
 
 class Web::BulletinsController < ApplicationController
-  before_action :set_bulletin, only: %i[archive to_moderate]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_bulletin, only: %i[show edit update archive to_moderate]
 
   def index
-    @bulletins = Bulletin.includes(:category, :creator).order(created_at: :desc)
+    @bulletins = Bulletin.includes(:category, :user).order(created_at: :desc)
   end
 
   def show
-    @bulletin = Bulletin.find params[:id]
+    authorize @bulletin
   end
 
   def new
-    @bulletin = Bulletin.new
+    @bulletin = current_user.bulletins.build
+    authorize @bulletin
   end
 
   def edit
-    @bulletin = Bulletin.find params[:id]
+    authorize @bulletin
   end
 
   def create
-    @bulletin = Bulletin.new(bulletin_params)
-    @bulletin.creator = current_user
+    @bulletin = current_user.bulletins.build(bulletin_params)
+    authorize @bulletin
 
     if @bulletin.save
-      redirect_to root_path, notice: 'Объявление было создано'
+      redirect_to @bulletin, notice: t('.success')
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    @bulletin = Bulletin.find params[:id]
+    authorize @bulletin
 
     if @bulletin.update(bulletin_params)
-      redirect_to @bulletin, notice: 'Bulletin was successfully updated.'
+      redirect_to @bulletin, notice: t('.success')
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  def destroy
-    @bulletin = Bulletin.find params[:id]
-
-    @bulletin&.destroy!
-
-    redirect_to vehicles_path, notice: 'Bulletin was successfully destroyed.'
-  end
-
   def archive
+    authorize @bulletin
+
     @bulletin.archive!
 
     if @bulletin.archived?
-      redirect_back_or_to 'admin/bulletins', notice: 'Bulletin was successfully archived.'
+      redirect_back_or_to profile_path, notice: t('.success')
     else
-      redirect_back_or_to 'admin/bulletins', notice: "Bulletin wasn't successfully archived."
+      redirect_back_or_to profile_path, notice: t('.fail')
     end
   end
 
   def to_moderate
+    authorize @bulletin
+
     @bulletin.to_moderate!
 
     if @bulletin.under_moderation?
-      redirect_back_or_to 'admin/bulletins', notice: 'Bulletin was successfully under moderation.'
+      redirect_back_or_to profile_path, notice: t('.success')
     else
-      redirect_back_or_to 'admin/bulletins', notice: "Bulletin wasn't successfully under moderation."
+      redirect_back_or_to profile_path, notice: t('.fail')
     end
   end
 

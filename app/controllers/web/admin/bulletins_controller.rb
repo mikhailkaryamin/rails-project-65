@@ -12,9 +12,9 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     @bulletin.publish!
 
     if @bulletin.published?
-      redirect_back_or_to admin_root_path, notice: 'Bulletin was successfully published.'
+      redirect_back_or_to admin_root_path, notice: t('.success')
     else
-      redirect_back_or_to admin_root_path, notice: "Bulletin wasn't successfully published."
+      redirect_back_or_to admin_root_path, notice: t('.fail')
     end
   end
 
@@ -22,9 +22,9 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     @bulletin.reject!
 
     if @bulletin.published?
-      redirect_back_or_to admin_root_path, notice: 'Bulletin was successfully published.'
+      redirect_back_or_to admin_root_path, notice: t('.success')
     else
-      redirect_back_or_to admin_root_path, notice: "Bulletin wasn't successfully created."
+      redirect_back_or_to admin_root_path, notice: t('.fail')
     end
   end
 
@@ -32,9 +32,9 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     @bulletin.archive!
 
     if @bulletin.archived?
-      redirect_back_or_to admin_root_path, notice: 'Bulletin was successfully archived.'
+      redirect_back_or_to admin_root_path, notice: t('.success')
     else
-      redirect_back_or_to admin_root_path, notice: "Bulletin wasn't successfully archived."
+      redirect_back_or_to admin_root_path, notice: t('.fail')
     end
   end
 

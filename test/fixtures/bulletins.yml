@@ -1,13 +1,34 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# == Schema Information
+#
+# Table name: bulletins
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  description :string
+#  user_id     :integer          not null
+#  category_id :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  state       :string           default("draft"), not null
+#
 
-one:
-  title: MyString
-  description: MyText
-  user: one
+draft:
+  title: Draft bulletin
+  description: This is over 10 symbols text for draft bulletin
+  user: first_author
   category: one
+  state: draft
 
-two:
-  title: MyString
-  description: MyText
-  user: two
+under_moderation:
+  title: Under moderation bulletin
+  description: This is over 10 symbols text for under moderation bulletin
+  user: first_author
   category: two
+  state: under_moderation
+
+archived:
+  title: Archived bulletin
+  description: This is over 10 symbols text for archived bulletin
+  user: second_author
+  category: one
+  state: archived

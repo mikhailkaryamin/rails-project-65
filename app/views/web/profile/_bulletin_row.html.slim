@@ -1,6 +1,6 @@
 tr
   td = bulletin.title
-  td = bulletin.state
+  td = localized_bulletin_state(bulletin.state)
   td = time_ago_in_words bulletin.created_at
   td.x-pinned-td
     .d-flex.justify-content-start.align-items-start

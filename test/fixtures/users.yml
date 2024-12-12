@@ -1,11 +1,30 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  name            :string
+#  email           :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  admin           :boolean
+#  bulletins_count :integer          default(0)
+#
 
-one:
-  name: OneName
-  email: one@one.ru
-  admin: true
-
-two:
-  name: TwoName
-  email: two@two.ru
+first_author:
+  name: First Author
+  email: first_author.com
   admin: false
+  bulletins_count: 1
+
+second_author:
+  name: Second Author
+  email: second_author@example.com
+  admin: false
+  bulletins_count: 1
+
+admin:
+  name: AdminUser
+  email: admin@example.com
+  admin: true
+  bulletins_count: 1

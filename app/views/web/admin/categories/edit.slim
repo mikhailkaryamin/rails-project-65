@@ -1,5 +1,5 @@
 = render layout: 'web/admin/shared/container' do
   h1.h2.mb-4
-    | Добавить категорию
+    = t('web.admin.categories.edit.header')
 
-  == render 'form', category: @category
+  == render 'form', method: :patch, url: admin_category_path

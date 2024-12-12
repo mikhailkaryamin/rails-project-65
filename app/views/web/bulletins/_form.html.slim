@@ -1,24 +1,20 @@
-= simple_form_for @bulletin do |f|
+= simple_form_for bulletin do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   .form-inputs
     .form-group.mb-3
-      = f.input :title,
-        label: 'Заголовок'
+      = f.input :title
     .form-group.mb-3
-      = f.input :description,
-        label: 'Описание'
+      = f.input :description
     .form-group.mb-3
-      = f.association :category,
-        label: 'Категория'
+      = f.association :category
 
-    - if @bulletin.image_attachment
-      = image_tag @bulletin.image.variant(resize_to_limit: [63, 110]), class: 'img-thumbnail mb-2'
+    - if bulletin.image.attached? && bulletin.image.persisted?
+      = image_tag bulletin.image.variant(resize_to_limit: [63, 110]), class: 'img-thumbnail mb-2'
 
     .form-group
-      = f.input :image,
-        label: 'Фотография'
+      = f.input :image
 
   .form-actions
-    = f.button :submit, 'Сохранить объявление', class: 'mt-4 btn btn-primary'
+    = f.button :submit, class: 'mt-4 btn btn-primary'
