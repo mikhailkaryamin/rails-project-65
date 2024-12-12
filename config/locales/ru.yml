@@ -282,9 +282,6 @@ ru:
           reset: Сброс
           title_hint: Искать по названию объявления
           category_hint: Выбрать категорию
-    home:
-      index:
-        header: Объявления
   views:
     pagination:
       first: "&laquo; К началу"
