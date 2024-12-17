@@ -9,9 +9,8 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   end
 
   def publish
-    @bulletin.publish!
-
-    if @bulletin.published?
+    if @bulletin.may_publish?
+      @bulletin.publish!
       redirect_back_or_to admin_root_path, notice: t('.success')
     else
       redirect_back_or_to admin_root_path, notice: t('.fail')
@@ -19,9 +18,8 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   end
 
   def reject
-    @bulletin.reject!
-
-    if @bulletin.published?
+    if @bulletin.may_reject?
+      @bulletin.reject!
       redirect_back_or_to admin_root_path, notice: t('.success')
     else
       redirect_back_or_to admin_root_path, notice: t('.fail')
@@ -29,9 +27,8 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   end
 
   def archive
-    @bulletin.archive!
-
-    if @bulletin.archived?
+    if @bulletin.may_archive?
+      @bulletin.archive!
       redirect_back_or_to admin_root_path, notice: t('.success')
     else
       redirect_back_or_to admin_root_path, notice: t('.fail')

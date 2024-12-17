@@ -10,8 +10,8 @@ class Bulletin < ApplicationRecord
   belongs_to :user, counter_cache: :bulletins_count
   belongs_to :category
 
-  validates :title, presence: true
-  validates :description, presence: true
+  validates :title, presence: true, length: { minimum: 2, maximum: 50 }
+  validates :description, presence: true, length: { minimum: 5, maximum: 1000 }
   validates :image,
             attached: true,
             content_type: {

@@ -46,9 +46,8 @@ class Web::BulletinsController < ApplicationController
   def archive
     authorize @bulletin
 
-    @bulletin.archive!
-
-    if @bulletin.archived?
+    if @bulletin.may_archive?
+      @bulletin.archive!
       redirect_back_or_to profile_path, notice: t('.success')
     else
       redirect_back_or_to profile_path, notice: t('.fail')
@@ -58,9 +57,8 @@ class Web::BulletinsController < ApplicationController
   def to_moderate
     authorize @bulletin
 
-    @bulletin.to_moderate!
-
-    if @bulletin.under_moderation?
+    if @bulletin.may_to_moderate?
+      @bulletin.to_moderate!
       redirect_back_or_to profile_path, notice: t('.success')
     else
       redirect_back_or_to profile_path, notice: t('.fail')
