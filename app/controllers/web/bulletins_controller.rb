@@ -5,11 +5,8 @@ class Web::BulletinsController < ApplicationController
   before_action :set_bulletin, only: %i[show edit update archive to_moderate]
 
   def index
-
-    @q = Bulletin
-    .published.includes(:user).with_attached_image.ransack(params[:q])
+    @q = Bulletin.published.includes(:user).with_attached_image.ransack(params[:q])
     @bulletins = @q.result.order(updated_at: :desc).page(params[:page]).per(12)
-
   end
 
   def show
